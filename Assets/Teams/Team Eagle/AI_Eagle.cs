@@ -7,18 +7,28 @@ namespace Eagle {
 
 	public class AI_Eagle : BaseSpaceShipController
 	{
+		private Blackboard _blackboard;
+
+
 		public override void Initialize(SpaceShip spaceship, GameData data)
 		{
+			_blackboard = GetComponent<Blackboard>();
+			if (!_blackboard)
+            {
+				_blackboard = gameObject.AddComponent(typeof(Blackboard)) as Blackboard;
+			}
+
+			_blackboard.Initialize(spaceship, data);
 		}
 
 		public override InputData UpdateInput(SpaceShip spaceship, GameData data)
 		{
 			float thrust = 1.0f;
 			float targetOrient = spaceship.Orientation + 90.0f;
-			return new InputData(thrust, targetOrient, false, false, false);
+
+			_blackboard.UpdateData(data);
+
+			return new InputData(thrust, targetOrient, _blackboard.TriggerShoot, false, false);
 		}
-
 	}
-
-
 }
