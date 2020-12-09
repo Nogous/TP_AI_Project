@@ -10,8 +10,6 @@ namespace Eagle
     {
         BehaviorTree _behaviorTree;
 
-        Vector2 focusPosition;
-
         public override void OnStart()
         {
             _behaviorTree = GetComponent<BehaviorTree>();
@@ -24,19 +22,39 @@ namespace Eagle
 
 
             float tmpDist = Vector2.Distance(data.WayPoints[0].Position, data.SpaceShips[_owner].Position);
-            int index = 0;
+            int indexA = 0;
 
             for (int i = 0; i < data.WayPoints.Count; i++)
             {
-                if (tmpDist > Vector2.Distance(data.WayPoints[i].Position, data.SpaceShips[_owner].Position))
+                if (tmpDist > Vector2.Distance(data.WayPoints[i].Position, data.SpaceShips[_owner].Position) && data.WayPoints[i].Owner != _owner)
                 {
                     tmpDist = Vector2.Distance(data.WayPoints[i].Position, data.SpaceShips[_owner].Position);
-                    index = i;
+                    indexA = i;
                 }
             }
 
-            _behaviorTree.SetVariableValue("targetPosition", data.WayPoints[index].Position);
-            focusPosition = data.WayPoints[index].Position;
+            _behaviorTree.SetVariableValue("targetPosition", data.WayPoints[indexA].Position);
+
+
+
+            _behaviorTree.SetVariableValue("FocusPointA", data.WayPoints[indexA]);
+            int indexB = 0;
+
+            for (int i = 0; i < data.WayPoints.Count; i++)
+            {
+                if (tmpDist > Vector2.Distance(data.WayPoints[i].Position, data.WayPoints[indexA].Position) && data.WayPoints[i].Owner != _owner)
+                {
+                    tmpDist = Vector2.Distance(data.WayPoints[i].Position, data.SpaceShips[_owner].Position);
+                    indexB = i;
+                }
+            }
+
+            _behaviorTree.SetVariableValue("FocusPointB", data.WayPoints[indexB]);
+            //_behaviorTree.FindTask<IsWayPointTrigger>().wayPoint[0] = data.WayPoints[indexA];
+
+            //Debug.Log(Vector2.Angle(data.SpaceShips[_owner].Position, focusPosition));
+
+            //Debug.DrawLine(focusPosition, spaceShipPosition, Color.white, 2f);
 
             return TaskStatus.Success;
         }

@@ -8,4 +8,10 @@ namespace Eagle
     {
         public static implicit operator SharedGameData(GameData value) { return new SharedGameData { Value = value }; }
     }
+
+    [System.Serializable]
+    public class SharedWayPoint : SharedVariable<WayPoint>
+    {
+        public static implicit operator SharedWayPoint(WayPoint value) { return new SharedWayPoint { Value = value }; }
+    }
 }
