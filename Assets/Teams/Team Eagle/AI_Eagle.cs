@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BehaviorDesigner.Runtime;
 using DoNotModify;
 
 namespace Eagle {
@@ -9,9 +10,12 @@ namespace Eagle {
 	{
 		private Blackboard _blackboard;
 
+		private BehaviorTree _behaviorTree;
 
 		public override void Initialize(SpaceShip spaceship, GameData data)
 		{
+			_behaviorTree = GetComponent<BehaviorTree>();
+
 			_blackboard = GetComponent<Blackboard>();
 			if (!_blackboard)
             {
@@ -24,7 +28,7 @@ namespace Eagle {
 		public override InputData UpdateInput(SpaceShip spaceship, GameData data)
 		{
 			float thrust = 1.0f;
-			float targetOrient = spaceship.Orientation + 90.0f;
+			float targetOrient = (_behaviorTree.GetVariable("targetOrient") as SharedFloat).Value;
 
 			_blackboard.UpdateData(data);
 
