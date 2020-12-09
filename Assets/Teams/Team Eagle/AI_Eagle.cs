@@ -27,7 +27,7 @@ namespace Eagle {
 
 		public override InputData UpdateInput(SpaceShip spaceship, GameData data)
 		{
-			float thrust = 1.0f;
+			float thrust = (_behaviorTree.GetVariable("thrust") as SharedFloat).Value;
 			float targetOrient = (_behaviorTree.GetVariable("targetOrient") as SharedFloat).Value;
 
 			_blackboard.UpdateData(data);
