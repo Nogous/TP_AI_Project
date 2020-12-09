@@ -32,12 +32,17 @@ namespace Eagle
 		{
 			_latestGameData = gameData;
 			_owner = aiShip.Owner;
+
+			_behaviorTree.SetVariableValue("Owner", _owner);
 		}
 
 		public void UpdateData(GameData gameData)
 		{
 			_latestGameData = gameData;
 
+			_behaviorTree.SetVariableValue("GameData", gameData);
+
+			//_behaviorTree.SetVariableValue("State", 1);
 			//int i = (_behaviorTree.GetVariable("State") as SharedInt).Value;
 
 			//_stateMachine.SetFloat("SomeVariable", 1.5f);
