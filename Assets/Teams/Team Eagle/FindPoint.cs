@@ -8,18 +8,17 @@ namespace Eagle
     [TaskCategory("AI_Eagle")]
     public class FindPoint : Action
     {
-        BehaviorTree _behaviorTree = null;
-        Animator _stateMachine = null;
-
-        int _owner;
-        GameData _gameData = null;
+        BehaviorTree _behaviorTree;
 
         public override void OnStart()
         {
+            _behaviorTree = GetComponent<BehaviorTree>();
         }
 
         public override TaskStatus OnUpdate()
         {
+
+            _behaviorTree.SetVariableValue("State", 1);
             /*
             float tmpDist = Vector2.Distance(data.WayPoints[0].Position, AI_Eagle.myShip.Position);
             Vector2 nextPos = data.WayPoints[0].Position;

@@ -38,7 +38,8 @@ namespace Eagle
 		{
 			_latestGameData = gameData;
 
-			//_behaviorTree.SetVariableValue("SomeVariable", 1.5f);
+			//int i = (_behaviorTree.GetVariable("State") as SharedInt).Value;
+
 			//_stateMachine.SetFloat("SomeVariable", 1.5f);
 
 			TriggerShoot = CanHit(gameData, ShootTimeTolerance);
