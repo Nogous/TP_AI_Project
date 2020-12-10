@@ -31,11 +31,13 @@ namespace Eagle {
 			float targetOrient = (_behaviorTree.GetVariable("targetOrient") as SharedFloat).Value;
 
 			bool IsDropping = (_behaviorTree.GetVariable("IsDroppingMine") as SharedBool).Value;
+			bool IsFiringShockwave = (_behaviorTree.GetVariable("IsFiringShockwave") as SharedBool).Value;
 			_behaviorTree.SetVariableValue("IsDroppingMine", false);
+			_behaviorTree.SetVariableValue("IsFiringShockwave", false);
 
 			_blackboard.UpdateData(data);
 
-			return new InputData(thrust, targetOrient, _blackboard.TriggerShoot, IsDropping, false);
+			return new InputData(thrust, targetOrient, _blackboard.TriggerShoot, IsDropping, IsFiringShockwave);
 		}
 	}
 }

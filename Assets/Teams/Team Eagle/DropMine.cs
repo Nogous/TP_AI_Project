@@ -10,10 +10,17 @@ namespace Eagle
 	{
 		SharedFloat IsMiningWeight = 0f;
 
-		public SharedFloat highWeightValue = 0.4f;
-		public SharedFloat midWeightValue = 0.2f;
-		public SharedFloat lowWeightValue = -0.2f;
-		public SharedFloat minWeightValue = -0.4f;
+		public SharedFloat highWeightValueE = 0.4f;
+		public SharedFloat midWeightValueE = 0.2f;
+		public SharedFloat lowWeightValueE = -0.2f;
+
+		public SharedFloat highWeightValueD = 0.4f;
+		public SharedFloat midWeightValueD = 0.2f;
+		public SharedFloat lowWeightValueD = -0.4f;
+
+		public SharedFloat highWeightValueT = 0.4f;
+		public SharedFloat midWeightValueT = 0.2f;
+		public SharedFloat lowWeightValueT = -0.2f;
 
 		public SharedFloat highEnergy = 0.8f;
 		public SharedFloat lowEnergy = 0.4f;
@@ -38,16 +45,16 @@ namespace Eagle
 
 			if (data.SpaceShips[_owner].Energy >= highEnergy.Value)
 			{
-				weightValue = highWeightValue.Value;
+				weightValue = highWeightValueE.Value;
 
 			}
 			else if (data.SpaceShips[_owner].Energy >= lowEnergy.Value)
 			{
-				weightValue = midWeightValue.Value;
+				weightValue = midWeightValueE.Value;
 			}
 			else
 			{
-				weightValue = lowWeightValue.Value;
+				weightValue = lowWeightValueE.Value;
 			}
 
 			return weightValue;
@@ -65,15 +72,15 @@ namespace Eagle
 
 					if (tmpDist >= data.SpaceShips[_owner].transform.lossyScale.x * highDistance.Value)
 					{
-						weightValue = highWeightValue.Value;
+						weightValue = highWeightValueD.Value;
 					}
 					else if (tmpDist >= data.SpaceShips[_owner].transform.lossyScale.x * lowDistance.Value)
 					{
-						weightValue = midWeightValue.Value;
+						weightValue = midWeightValueD.Value;
 					}
 					else
 					{
-						weightValue = minWeightValue.Value;
+						weightValue = lowWeightValueD.Value;
 					}
 				}
 			}
@@ -87,15 +94,15 @@ namespace Eagle
 
 			if (data.timeLeft <= lowTime.Value)
 			{
-				weightValue = lowWeightValue.Value;
+				weightValue = lowWeightValueT.Value;
 			}
 			else if (data.timeLeft <= highTime.Value)
 			{
-				weightValue = midWeightValue.Value;
+				weightValue = midWeightValueT.Value;
 			}
 			else
 			{
-				weightValue = highWeightValue.Value;
+				weightValue = highWeightValueT.Value;
 			}
 
 			return weightValue;
@@ -110,11 +117,11 @@ namespace Eagle
 
 			IsMiningWeight.Value = EnergyWeight(data, _owner) + DistanceWeight(data, _owner) + TimeWeight(data, _owner);
 
-			if (IsMiningWeight.Value > 0.5)
+			if (IsMiningWeight.Value >= 0.5)
 			{
 				IsDropping = true;
 			}
-			else if (IsMiningWeight.Value > 0)
+			else if (IsMiningWeight.Value >= 0)
 			{
 				IsDropping = true;
 			}
