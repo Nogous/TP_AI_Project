@@ -118,11 +118,21 @@ namespace Eagle
 
 			if (IsMiningWeight.Value >= 0.5)
 			{
+				_behaviorTree.SetVariableValue("TimerShockwave", 0f);
 				IsFiring = true;
 			}
 			else if (IsMiningWeight.Value >= 0)
 			{
-				IsFiring = true;
+				if ((_behaviorTree.GetVariable("TimerShockwave") as SharedFloat).Value != 0)
+				{
+					_behaviorTree.SetVariableValue("TimerShockwave", 1f);
+					IsFiring = false;
+				}
+				else
+				{
+					_behaviorTree.SetVariableValue("TimerShockwave", 0f);
+					IsFiring = true;
+				}
 			}
 			else
 			{

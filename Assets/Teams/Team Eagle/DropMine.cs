@@ -120,6 +120,7 @@ namespace Eagle
 			if (IsMiningWeight.Value >= 0.5)
 			{
 				IsDropping = true;
+				_behaviorTree.SetVariableValue("TimerBomb", 0.3f);
 			}
 			else if (IsMiningWeight.Value >= 0)
 			{
