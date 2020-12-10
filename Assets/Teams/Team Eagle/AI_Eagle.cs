@@ -30,9 +30,12 @@ namespace Eagle {
 			float thrust = (_behaviorTree.GetVariable("thrust") as SharedFloat).Value;
 			float targetOrient = (_behaviorTree.GetVariable("targetOrient") as SharedFloat).Value;
 
+			bool IsDropping = (_behaviorTree.GetVariable("IsDroppingMine") as SharedBool).Value;
+			_behaviorTree.SetVariableValue("IsDroppingMine", false);
+
 			_blackboard.UpdateData(data);
 
-			return new InputData(thrust, targetOrient, _blackboard.TriggerShoot, false, false);
+			return new InputData(thrust, targetOrient, _blackboard.TriggerShoot, IsDropping, false);
 		}
 	}
 }

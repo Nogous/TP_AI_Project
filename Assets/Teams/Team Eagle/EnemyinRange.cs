@@ -36,7 +36,7 @@ namespace Eagle
 				}
 			}
 
-			return TaskStatus.Failure;
+			return TaskStatus.Success;
 		}
 	}
 }
