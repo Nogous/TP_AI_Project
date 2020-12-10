@@ -7,6 +7,9 @@ namespace Eagle
 {
 	public class IsWayPointTrigger : Action
 	{
+		public SharedString StepTrue;
+		public SharedString StepFalse;
+
 		BehaviorTree _behaviorTree;
 
 		WayPoint wayPointA;
@@ -15,7 +18,7 @@ namespace Eagle
 		{
 			_behaviorTree = GetComponent<BehaviorTree>();
 
-			wayPointA = (_behaviorTree.GetVariable("Owner") as SharedWayPoint).Value;
+			wayPointA = (_behaviorTree.GetVariable("FocusPointA") as SharedWayPoint).Value;
 		}
 
 		public override TaskStatus OnUpdate()
@@ -24,9 +27,14 @@ namespace Eagle
 			Debug.Log(wayPointA.Owner +" : "+ (_behaviorTree.GetVariable("Owner") as SharedInt).Value);
             if (wayPointA.Owner == (_behaviorTree.GetVariable("Owner") as SharedInt).Value)
 			{
-				return TaskStatus.Success;
+				_behaviorTree.SetVariableValue("State", StepTrue);
+            }
+            else
+			{
+				_behaviorTree.SetVariableValue("State", StepFalse);
 			}
-			return TaskStatus.Running;
+
+			return TaskStatus.Success;
 		}
 	}
 }

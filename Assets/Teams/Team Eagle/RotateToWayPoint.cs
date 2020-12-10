@@ -20,8 +20,15 @@ namespace Eagle
 			int _owner = (_behaviorTree.GetVariable("Owner") as SharedInt).Value;
 			GameData data = (_behaviorTree.GetVariable("GameData") as SharedGameData).Value;
 
-			Vector2 focusPosition = (_behaviorTree.GetVariable("FocusPointA") as SharedWayPoint).Value.Position;
-			Vector2 tmp = focusPosition - data.SpaceShips[_owner].Position;
+
+			Vector2 focusWaipoint = (_behaviorTree.GetVariable("FocusPointA") as SharedWayPoint).Value.Position;
+
+			Vector2 direction = Vector2.Perpendicular(focusWaipoint - (data.SpaceShips[_owner].Position));
+			focusWaipoint -= data.SpaceShips[_owner].Velocity.normalized;
+			//float angle = Mathf.Atan2(focusWaipoint.y, focusWaipoint.x) * Mathf.Rad2Deg;
+			//Vector2 focusPos = direction.normalized * Mathf.Cos((-data.SpaceShips[_owner].Velocity).magnitude * angle);
+
+			Vector2 tmp = focusWaipoint - data.SpaceShips[_owner].Position;
 			_behaviorTree.SetVariableValue("targetOrient", Mathf.Atan2(tmp.y, tmp.x) * Mathf.Rad2Deg);
 
 

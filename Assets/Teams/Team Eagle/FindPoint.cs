@@ -33,10 +33,6 @@ namespace Eagle
                 }
             }
 
-            _behaviorTree.SetVariableValue("targetPosition", data.WayPoints[indexA].Position);
-
-
-
             _behaviorTree.SetVariableValue("FocusPointA", data.WayPoints[indexA]);
             int indexB = 0;
 
