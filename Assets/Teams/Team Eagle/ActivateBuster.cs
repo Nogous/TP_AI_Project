@@ -13,12 +13,11 @@ namespace Eagle
 		public override void OnStart()
 		{
 			_behaviorTree = GetComponent<BehaviorTree>();
-
-			_behaviorTree.SetVariableValue("thrust", speed);
 		}
 
 		public override TaskStatus OnUpdate()
 		{
+			_behaviorTree.SetVariableValue("thrust", speed);
 			return TaskStatus.Success;
 		}
 	}
