@@ -20,7 +20,7 @@ namespace GoldSquadron
 
         public override TaskStatus OnUpdate()
         {
-            UnityEngine.Debug.Log("Je shoot");
+            //UnityEngine.Debug.Log("Je shoot");
             weaponSystem.FireShoot(energyToSave);
             return TaskStatus.Success;
         }

@@ -100,7 +100,7 @@ namespace GoldSquadron
                 RaycastHit2D hit = Physics2D.Raycast(shipPos, _debugIntersection - shipPos, (_debugIntersection - shipPos).magnitude, layerMask);
                 if(!hit)
                 {
-                    Debug.Log("Go, go go");
+                    //Debug.Log("Go, go go");
                     enemyInSight = true;
                     return;
                 }

@@ -7,7 +7,7 @@ namespace Eagle
 {
 	public class RotateToWayPoint : Action
 	{
-		public SharedString nextStepe;
+		//public SharedString nextStepe;
 
 		BehaviorTree _behaviorTree;
 		public override void OnStart()
@@ -34,7 +34,7 @@ namespace Eagle
 
 			if (data.SpaceShips[_owner].Orientation <= Mathf.Atan2(tmp.y, tmp.x) * Mathf.Rad2Deg + 1 && data.SpaceShips[_owner].Orientation >= Mathf.Atan2(tmp.y, tmp.x) * Mathf.Rad2Deg - 1)
 			{
-				_behaviorTree.SetVariableValue("State", nextStepe);
+				//_behaviorTree.SetVariableValue("State", nextStepe);
 			}
 
 			return TaskStatus.Success;

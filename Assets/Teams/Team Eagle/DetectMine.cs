@@ -2,6 +2,7 @@ using UnityEngine;
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using DoNotModify;
+using System.Collections.Generic;
 
 namespace Eagle
 {
@@ -16,6 +17,8 @@ namespace Eagle
 	{
 		float range;
 		float angle;
+
+		private List<Mine> mines = new List<Mine>();
 
 		BehaviorTree _behaviorTree;
 		public override void OnStart()
@@ -46,19 +49,47 @@ namespace Eagle
 			Triangle triangle = new Triangle();
 			triangle.p0 = data.SpaceShips[_owner].Position;
 
-			Vector2 orientR = new Vector2(Mathf.Cos(data.SpaceShips[_owner].Orientation+ angle/2), Mathf.Sin(data.SpaceShips[_owner].Orientation+ angle/2));
-			Vector2 orientL = new Vector2(Mathf.Cos(data.SpaceShips[_owner].Orientation- angle/2), Mathf.Sin(data.SpaceShips[_owner].Orientation- angle/2));
+			Vector2 orientR = new Vector2(Mathf.Cos((data.SpaceShips[_owner].Orientation + angle / 2) * Mathf.Deg2Rad), Mathf.Sin((data.SpaceShips[_owner].Orientation + angle / 2) * Mathf.Deg2Rad));
+			Vector2 orientL = new Vector2(Mathf.Cos((data.SpaceShips[_owner].Orientation - angle / 2) * Mathf.Deg2Rad), Mathf.Sin((data.SpaceShips[_owner].Orientation - angle / 2) * Mathf.Deg2Rad));
 
 			triangle.p1 = triangle.p0 + orientR.normalized* range;
 			triangle.p2 = triangle.p0 + orientL.normalized* range;
+			Debug.DrawLine(triangle.p0, triangle.p1, Color.green);
+			Debug.DrawLine(triangle.p0, triangle.p2, Color.red);
 
+            for (int i = mines.Count; i-->0;)
+            {
+                if (!mines[i])
+                {
+					mines.Remove(mines[i]);
+                }
+            }
+
+			bool isMineShooted = false;
 
             for (int i = 0; i < data.Mines.Count; i++)
             {
 				if(PointInTriangle(data.Mines[i].Position, triangle))
-                {
+				{
+					isMineShooted = false;
 
-                }
+					for (int j = 0; j < mines.Count; j++)
+                    {
+                        if (mines[j] == data.Mines[i])
+						{
+							isMineShooted = true;
+							break;
+                        }
+					}
+                    if (!isMineShooted)
+					{
+						mines.Add(data.Mines[i]);
+						Debug.Log("shoot bomber");
+						_behaviorTree.SetVariableValue("TriggerShoot", true);
+
+						return TaskStatus.Success;
+					}
+				}
             }
 	
 		return TaskStatus.Success;
