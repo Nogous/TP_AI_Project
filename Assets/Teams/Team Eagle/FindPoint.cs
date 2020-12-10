@@ -21,7 +21,7 @@ namespace Eagle
             int _owner = (_behaviorTree.GetVariable("Owner") as SharedInt).Value;
 
 
-            float tmpDist = Vector2.Distance(data.WayPoints[0].Position, data.SpaceShips[_owner].Position);
+            float tmpDist = 1000f;
             int indexA = 0;
 
             for (int i = 0; i < data.WayPoints.Count; i++)

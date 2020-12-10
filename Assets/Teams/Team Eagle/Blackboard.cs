@@ -57,6 +57,11 @@ namespace Eagle
 			SpaceShip aiShip = gameData.SpaceShips[_owner];
 			SpaceShip enemyShip = gameData.SpaceShips[1 - _owner];
 
+            if (Vector2.Distance(aiShip.Position, enemyShip.Position)>10)
+            {
+				return false;
+            }
+
 			float shootAngle = Mathf.Deg2Rad * aiShip.Orientation;
 			Vector2 shootDir = new Vector2(Mathf.Cos(shootAngle), Mathf.Sin(shootAngle));
 

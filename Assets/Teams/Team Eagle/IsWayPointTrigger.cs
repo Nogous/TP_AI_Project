@@ -24,7 +24,7 @@ namespace Eagle
 		public override TaskStatus OnUpdate()
 		{
 
-			Debug.Log(wayPointA.Owner +" : "+ (_behaviorTree.GetVariable("Owner") as SharedInt).Value);
+			//Debug.Log(wayPointA.Owner +" : "+ (_behaviorTree.GetVariable("Owner") as SharedInt).Value);
             if (wayPointA.Owner == (_behaviorTree.GetVariable("Owner") as SharedInt).Value)
 			{
 				_behaviorTree.SetVariableValue("State", StepTrue);

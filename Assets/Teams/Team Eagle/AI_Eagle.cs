@@ -46,7 +46,7 @@ namespace Eagle {
 				{
 					_behaviorTree.SetVariableValue("IsDroppingMine", true);
 					IsDropping = (_behaviorTree.GetVariable("IsDroppingMine") as SharedBool).Value;
-					_behaviorTree.SetVariableValue("TimerBomb", 0);
+					//_behaviorTree.SetVariableValue("TimerBomb", 0);
 					elapsedTimeBomb = 0;
 				}
 			}
@@ -68,7 +68,12 @@ namespace Eagle {
 
 			_blackboard.UpdateData(data);
 
-			return new InputData(thrust, targetOrient, _blackboard.TriggerShoot, IsDropping, IsFiringShockwave);
+			bool triggerShoot = (_behaviorTree.GetVariable("TriggerShoot") as SharedBool).Value;
+			if (_blackboard.TriggerShoot)
+				triggerShoot = true;
+			_behaviorTree.SetVariableValue("TriggerShoot", false);
+
+			return new InputData(thrust, targetOrient, triggerShoot, IsDropping, IsFiringShockwave);
 		}
 	}
 }
